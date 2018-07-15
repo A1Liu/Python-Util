@@ -1,8 +1,32 @@
 # -*- coding: utf-8 -*-
+import numpy as np
 import pandas as pd
 import mr_clean_utils as mcu
 
-def remove_whitespace(df):
+def validate(df,coerce_numeric,coerce_dt,coerce_categorical): # validates input
+    assert type(df) is pd.DataFrame
+    column_dict = {}
+    for element in coerce_numeric + coerce_dt + coerce_categorical: # these lists must be mutually exclusive
+        assert type(element) is str
+        assert not element in column_dict
+        column_dict[element] = True
+
+def rename_cols(df, col_names): # renames columns
+    if col_names is not None:
+        col_list = [*col_names]
+        col_gen = get_colname_gen(df)
+        for col_name in col_gen():
+            if len(col_list) >= len(df.columns):
+                break
+            else:
+                col_list.append(col_name)
+    else:
+        col_list = [*df.columns]
+    for index,col_name in enumerate(col_list):
+        col_list[index] = col_name.strip().lower().replace(' ','_')
+    df.columns = col_list
+
+def remove_whitespace(df): # removes whitespace from string columns
     for column in (column for column in df if not mcu.is_num( df[column] )  ):
         df[column] = df[column].str.strip()
         yield column
@@ -82,14 +106,27 @@ def get_cutoff(column, cutoff):
         return cutoff[column] if column in cutoff else 1
     return cutoff
 
-#def get_colname_gen(df):
-#    def colname_gen(row_name = 'mrClean'):
-#        assert type(df) is pd.DataFrame
-#        id_number = 0
-#        while True:
-#            id_string = row_name + str(id_number)
-#            if id_string in df.keys():
-#                id_number+=1
-#            else:
-#                yield id_string
-#    return colname_gen
+def get_colname_gen(df):
+    def colname_gen(row_name = 'mrClean'):
+        assert type(df) is pd.DataFrame
+        id_number = 0
+        while True:
+            id_string = row_name + str(id_number)
+            if id_string in df.keys():
+                id_number+=1
+            else:
+                yield id_string
+    return colname_gen
+
+def preview(df,preview_rows = 5,preview_max_cols = 0):
+    """ Returns a preview of a dataframe, which contains both header
+    rows and tail rows.
+    """
+    assert type(df) is pd.DataFrame
+    if preview_rows <= 0:
+        preview_rows = 1
+    initial_max_cols = pd.get_option('display.max_columns')
+    pd.set_option('display.max_columns', preview_max_cols)
+    data = df.iloc[np.r_[0:preview_rows,-preview_rows:0]]
+    pd.set_option('display.max_columns', initial_max_cols)
+    return str(data)

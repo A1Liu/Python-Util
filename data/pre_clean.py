@@ -85,7 +85,7 @@ def summary(df,preview_rows = 5,preview_max_cols = 0,
 
 # Setup helper methods. All of these return the value to display
 
-def preview(df,preview_rows = 5,preview_max_cols = 0):
+def preview(df,preview_rows,preview_max_cols):
     """ Returns a preview of a dataframe, which contains both header
     rows and tail rows.
     """
