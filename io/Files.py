@@ -16,20 +16,17 @@ else:
     print("Folder already exists!")
 
 #directory is a pre-formatted directory string, localdir is a tuple, and name is the name of the file/folder
-def createPath(dir, localdir, name = ""):
-    newpath = dir
+def createPath(dir_name, localdir, name = ""):
     for item in localdir:
-        newpath = os.path.join(newpath,item)
+        dir_name = os.path.join(dir_name,item)
     newpath = os.path.join(newpath,name)
     return newpath
 
-def checkExist(dir):
-    return os.path.exists(os.path.join(self._dir,createPath(self._dir,dir)))
+def checkExist(dir_name):
+    return os.path.exists(dir_name)
 
-def createFile(name, dir, *content):#content is by line
-    if not (isinstance(name, str) and name):
-        raise TypeError("Name must be a non-empty string!")
-    newpath = createPath(dir, name)
+def createFile(name, dir_name, *content):#content is by line
+    newpath = createPath(dir_name, name)
     if not os.path.exists(newpath):
         file = open(newpath, "w+")
         file.write(str(name) + "\n")

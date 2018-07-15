@@ -1,3 +1,0 @@
-AppData
-AppData,AddressBook
-AppData,AddressBook,A
