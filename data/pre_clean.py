@@ -8,7 +8,9 @@ import shutil
 # This method takes in a DataFrame object, as well as a few parameters,
 # and outputs a DataFrame that summarizes some of the possible problems
 # that might have to be addressed in cleaning
-def summary(df,preview_rows = 5,preview_max_cols = 0,memory_usage = 'deep',display_width = None,output_file = None, output_safe = True):
+def summary(df,preview_rows = 5,preview_max_cols = 0,
+            memory_usage = 'deep',display_width = None,
+            output_file = None, output_safe = True):
     """ Prints information about the DataFrame to a file or to the prompt.
 
     Parameters
@@ -33,22 +35,24 @@ def summary(df,preview_rows = 5,preview_max_cols = 0,memory_usage = 'deep',displ
         existing files.
     """
     assert type(df) is pd.DataFrame
-    global percentiles
-    #Values of data
+
+    # --------Values of data-----------
     df_preview = preview(df,preview_rows = 5,preview_max_cols = 0)
     info = get_info(df,verbose = True, max_cols = None,memory_usage = memory_usage,null_counts = True)
-    percent_values = try_except(percentiles, df)
+    percent_values = percentiles(df)
+    # TODO add 'potential outliers' output
 
-    # Build lists
+    # ----------Build lists------------
     title_list = ['Preview','Describe','Info']
     info_list = [df_preview,df.describe().transpose(),info]
     if percent_values is not None:
         title_list.append('Percentile Details')
         info_list.append(percent_values)
-    title_list+=['Missing Values Summary']
-    info_list+=[data_types(df)]
+    title_list+=['Missing Values Summary','Potential Outliers']
+    info_list+=[data_types(df),None]
     output = list(zip(title_list,info_list))
-    # Print or output
+
+    # -------Print or output-----------
 
     # Get initial display settings
     initial_max_cols = pd.get_option('display.max_columns')
@@ -110,7 +114,7 @@ def percentiles(df):
     try:
         return df.quantile(q = [0,.1,.2,.3,.4,.5,.6,.7,.8,.9,1])
     except ValueError:
-        return "No columns with numeric data."
+        return None#"No columns with numeric data."
 
 def data_types(df):
     """ Takes in a dataframe and returns a dataframe with

@@ -17,7 +17,7 @@ These are problems that hinder every other operation that could be done, and inc
 - All entries contain characters that prevent the dataframe from being read in correctly.
 - Rows are labeled with names that make it harder to do analysis
 - Data is corrupted
-- No entries 
+- No entries
 - Entries are encoded wrong
 
 #### Handling missing values
@@ -40,3 +40,19 @@ These are problems that hinder every other operation that could be done, and inc
 #### Print what was done
 
 Print exactly what was done, and a (useful) summary of the dataset, after each action.
+
+
+
+#### Params
+
+df
+char_scrub = True
+char_scrub_cutoff = .99
+scrub_ignore = []
+numeric_cutoff - Cutoff for coercing a numeric 
+coerce_numeric - Columns explicitly meant to be converted to numeric 
+dt_cutoff = .99
+coerce_dt = []
+dt_format = None
+categorical_cutoff = .80
+coerce_categorical = []
