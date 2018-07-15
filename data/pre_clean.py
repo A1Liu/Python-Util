@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import io
 import shutil
-#%% Pre-cleaning
+# Pre-cleaning
 
 # This method takes in a DataFrame object, as well as a few parameters,
 # and outputs a DataFrame that summarizes some of the possible problems
@@ -35,13 +35,13 @@ def summary(df,preview_rows = 5,preview_max_cols = 0,memory_usage = 'deep',displ
     assert type(df) is pd.DataFrame
     global percentiles
     #Values of data
-    preview = preview_df(df,preview_rows = 5,preview_max_cols = 0)
+    df_preview = preview(df,preview_rows = 5,preview_max_cols = 0)
     info = get_info(df,verbose = True, max_cols = None,memory_usage = memory_usage,null_counts = True)
     percent_values = try_except(percentiles, df)
 
     # Build lists
     title_list = ['Preview','Describe','Info']
-    info_list = [preview,df.describe().transpose(),info]
+    info_list = [df_preview,df.describe().transpose(),info]
     if percent_values is not None:
         title_list.append('Percentile Details')
         info_list.append(percent_values)
@@ -79,7 +79,7 @@ def summary(df,preview_rows = 5,preview_max_cols = 0,memory_usage = 'deep',displ
     pd.set_option('display.max_columns', initial_max_rows)
     pd.set_option('display.max_columns', initial_width)
 
-#%% Setup helper methods. All of these return the value to display
+# Setup helper methods. All of these return the value to display
 
 def preview(df,preview_rows = 5,preview_max_cols = 0):
     """ Returns a preview of a dataframe, which contains both header
@@ -161,7 +161,7 @@ def data_types(df):
 def format_row_number(rows, total_rows):
     return "{} ({}%)".format(rows, round(rows/total_rows*100,2))
 
-#%% Utility methods
+# Utility methods
 
 def title_line(text):
     """Returns a string that represents the
