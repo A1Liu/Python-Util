@@ -9,7 +9,7 @@ With Mr. Clean, no dataset is safe! (Unless it's clean, or in a format other tha
 3. Change data formats
 4. Do melts and pivots (If necessary)
 
-#### 1. Diagnose underlying problems
+#### Diagnose underlying problems
 
 These are problems that hinder every other operation that could be done, and include:
 
