@@ -94,9 +94,9 @@ def preview(df,preview_rows,preview_max_cols):
         preview_rows = 1
     initial_max_cols = pd.get_option('display.max_columns')
     pd.set_option('display.max_columns', preview_max_cols)
-    data = df.iloc[np.r_[0:preview_rows,-preview_rows:0]]
+    data = str(df.iloc[np.r_[0:preview_rows,-preview_rows:0]])
     pd.set_option('display.max_columns', initial_max_cols)
-    return str(data)
+    return data
 
 def get_info(df, verbose = None,max_cols = None, memory_usage = None, null_counts = None):
     """ Returns the .info() output of a dataframe

@@ -46,13 +46,21 @@ Print exactly what was done, and a (useful) summary of the dataset, after each a
 #### Params
 
 df
-char_scrub = True
-char_scrub_cutoff = .99
-scrub_ignore = []
-numeric_cutoff - Cutoff for coercing a numeric 
-coerce_numeric - Columns explicitly meant to be converted to numeric 
-dt_cutoff = .99
-coerce_dt = []
-dt_format = None
-categorical_cutoff = .80
-coerce_categorical = []
+settings - This should be a dictionary. If it is, then the method will use it for all settings. Any not included will be set to the default.
+col_names
+handle_na - function to use to handle missing rows
+char_scrub  - whether or not to perform a char scrub
+char_scrub_cutoff - cutoff for when to stop scrubbing, i.e. what percentage needs to have the same character in order to scrub
+scrub_ignore - a list of column names to ignore when scrubbing
+numeric_cutoff - Cutoff for coercing a numeric i.e. what percentage needs to be a numeric in order to allow a numeric coercion
+coerce_numeric - Columns explicitly meant to be converted to numeric
+dt_cutoff - Cutoff for coercing a numeric i.e. what percentage needs to be a numeric in order to allow a numeric coercion
+coerce_dt - Columns explicitly meant to be converted to numeric
+dt_format - Format string for date-time characters
+categorical_cutoff - Cutoff for coercing a categorical i.e. what percentage of the column entries are duplicates
+coerce_categorical - Columns explicitly meant to be converted to numeric
+display_preview - Whether or not to display the preview
+preview_rows - Rows of the head and tail to preview
+preview_max_cols - Max cols to preview
+output_file - Filepath to output to. If None, will return the dataframe instead.
+output_safe - May overwrite an existing file if and only if output_safe is False
