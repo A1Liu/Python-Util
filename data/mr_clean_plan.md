@@ -34,3 +34,4 @@ These are problems that hinder every other operation that could be done, and inc
 
 1. Infer columns that need to be melted or pivoted
 2. Do it.
+3. If a melt was performed, convert the 'variable' column to a categorical column
