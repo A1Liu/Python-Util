@@ -1,7 +1,7 @@
 # MR CLEAN
 With Mr. Clean, no dataset is safe! (Unless it's clean, or in a format other than DataFrame.)
 
-### Plan
+## Plan
 
 0. Make a copy of the inputted DataFrame
 1. Diagnose problems with underlying data format
