@@ -64,3 +64,41 @@ preview_rows - Rows of the head and tail to preview
 preview_max_cols - Max cols to preview
 output_file - Filepath to output to. If None, will return the dataframe instead.
 output_safe - May overwrite an existing file if and only if output_safe is False
+
+
+
+Separate files into:
+
+utils
+data utils
+printing utils
+
+Low level cleaning and formatting
+table-blind actions
+single column actions
+collecting and formatting metadata
+collecting data on relationships between columns
+
+2nd level formatting
+inferring best action for single column
+parsing metadata
+
+3rd level
+relationships between multiple columns
+
+
+
+4th level
+
+
+meta-data parsing
+
+actions for small subset of table
+actions for 
+
+
+
+
+
+
+

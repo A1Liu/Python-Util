@@ -1,0 +1,6 @@
+mc_funcs - mr clean functions. No or minimal logic. Basic tasks for data cleaning.
+mc_utils - utilities for handling data
+mc_io - utilities for handling printing and output
+cleaner - holds information about what tasks have been performed, what options have been set, etc.
+mc_checks - Includes simple logic to increase function safety and complexity of some of mc_funcs
+mc_stats - non-destructive functions to get information on the dataframe or to transform the data.

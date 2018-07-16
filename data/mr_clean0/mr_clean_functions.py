@@ -101,11 +101,12 @@ def __infer_coerce(df, column,
     all_cutoffs = [categorical_cutoff,numeric_cutoff,dt_cutoff]
     all_coerced = [cat_coerced,num_coerced,dt_coerced]
     all_counts = [coerced.count() for coerced in all_coerced]
-    all_counts[0] = rows(df)-len(all_coerced[0].value_counts())+2 # Bias towards cetegorical
-    high_count = max(*all_counts)
+    all_counts[0] = rows(df)-len(all_coerced[0].value_counts())
+    all_scores = [count-row_req(df,cutoff) for count,cutoff in zip(all_counts,all_cutoffs)]
+    high_score = max(*all_scores)
     for index in range(3):
-        if all_counts[index] == high_count and \
-            all_counts[index] > row_req(df,all_cutoffs[index]):
+        if all_scores[index] == high_score and \
+            all_scores[index] >= 0:
             coerce(df, column, all_coerced[index])
             return True
     return False
@@ -122,3 +123,7 @@ def preview(df,preview_rows = 5,preview_max_cols = 0):
     data = str(df.iloc[np.r_[0:preview_rows,-preview_rows:0]])
     pd.set_option('display.max_columns', initial_max_cols)
     return data
+
+
+
+
